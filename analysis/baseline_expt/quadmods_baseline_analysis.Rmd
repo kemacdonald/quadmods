@@ -20,7 +20,7 @@ library(lme4)
 library(bootstrap)
 library(magrittr)
 library(stringr)
-theme_set(theme_classic())
+theme_set(theme_bw())
 ```
 
 Load data.
@@ -77,7 +77,7 @@ ss <- d1 %>%
               max_training_block = max(as.numeric(block)))
 
 ggplot(aes(x=exp_time_min, fill = reached_crit), data = ss) +
-    geom_density(alpha = 0.5) +
+    geom_histogram(alpha = 0.7, binwidth = 2) +
     scale_fill_solarized() 
 ```
 
@@ -234,14 +234,6 @@ ggplot(aes(x = block, y = mean), data = ms) +
 
 ### Within subjects change scores
 
-Distribution of change scores split by if ss reached criterion.
-
-```{r}
-ggplot(data = ss_acc, aes(x = m_diff_score, fill = reached_crit)) + 
-    geom_density(alpha = 0.5) +
-    scale_fill_solarized()
-```
-
 ```{r}
 ss_acc <- d1 %>% 
     filter(trial_type %in% c("relational")) %>% 
@@ -271,4 +263,16 @@ ggplot(aes(x = trial_type, y = mean, fill = trial_type),
     ylim(-0.2, 0.2) + 
     guides(fill=F) + 
     theme_bw()
+```
+
+## Split analysis by diagnostic items
+
+Here we want ask whether performance on specific training trials gives us information about
+who is likely to reach criterion in the passive training. Specifically, we want to know if
+the first time you are asked about squares and rectangles or squares and rhombuses provides
+evidence for your meta-theory or meta-understanding of the inclusional quadrilateral definitions.
+
+```{r}
+
+
 ```
